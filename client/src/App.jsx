@@ -4,6 +4,7 @@ import Overview from "./pages/Overview";
 import SecureDemo from "./pages/SecureDemo";
 import Readiness from "./pages/Readiness";
 import Footer from "./components/Footer";
+import Simulation from "./pages/Simulation";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/chat" element={<SecureDemo />} />
+            <Route path="/simulation" element={<Simulation />} />
             <Route path="/readiness" element={<Readiness />} />
           </Routes>
         </div>

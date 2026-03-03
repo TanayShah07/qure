@@ -12,24 +12,40 @@ const SecureDemo = () => {
   }, [messages]);
 
   const encryptMessage = async (text) => {
-    const rsa = await api.post("/encrypt", {
-      algorithm: "rsa",
+    const rsaResponse = await api.post("/encrypt", {
       message: text,
     });
 
-    const lattice = await api.post("/encrypt", {
+    const latticeResponse = await api.post("/encrypt", {
       algorithm: "lattice",
       message: text,
     });
 
     return {
-      rsa: rsa.data.encrypted,
-      lattice: lattice.data.encrypted,
+      rsaCipher: rsaResponse.data.rsa.ciphertext,
+      rsaDecrypted: rsaResponse.data.rsa.decrypted,
+      encryptionTime: rsaResponse.data.rsa.encryptionTime,
+      decryptionTime: rsaResponse.data.rsa.decryptionTime,
+      lattice: latticeResponse.data.encrypted,
     };
   };
 
   const generateReply = (text) => {
-    return `System received: "${text}". Message secured using post-quantum cryptography.`;
+    const lower = text.toLowerCase();
+
+    if (lower.includes("hi") || lower.includes("hello")) {
+      return "Hi 👋 How are you?";
+    }
+
+    if (lower.includes("how are you")) {
+      return "I'm doing great! Secure and encrypted 😎";
+    }
+
+    if (lower.includes("bye")) {
+      return "Goodbye! Stay quantum safe 🔐";
+    }
+
+    return "Message received and encrypted securely.";
   };
 
   const handleSend = async () => {
@@ -42,8 +58,7 @@ const SecureDemo = () => {
     const userMessage = {
       sender: "user",
       text: message,
-      rsa: userEncryption.rsa,
-      lattice: userEncryption.lattice,
+      ...userEncryption,
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -54,8 +69,7 @@ const SecureDemo = () => {
     const systemMessage = {
       sender: "system",
       text: replyText,
-      rsa: replyEncryption.rsa,
-      lattice: replyEncryption.lattice,
+      ...replyEncryption,
     };
 
     setMessages((prev) => [...prev, systemMessage]);
@@ -74,7 +88,6 @@ const SecureDemo = () => {
         color: "white",
       }}
     >
-
       <div
         style={{
           flex: 1,
@@ -89,8 +102,7 @@ const SecureDemo = () => {
           <div
             key={index}
             style={{
-              alignSelf:
-                msg.sender === "user" ? "flex-end" : "flex-start",
+              alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
               maxWidth: "65%",
               display: "flex",
               flexDirection: "column",
@@ -114,10 +126,27 @@ const SecureDemo = () => {
                 opacity: 0.85,
                 marginTop: "6px",
                 lineHeight: "1.4",
+                wordBreak: "break-all",
               }}
             >
-              <div><strong>RSA:</strong> {msg.rsa}</div>
-              <div><strong>Lattice:</strong> {msg.lattice}</div>
+              <div>
+                <strong>RSA Cipher:</strong>{" "}
+                {JSON.stringify(msg.rsaCipher)}
+              </div>
+              <div>
+                <strong>RSA Decrypted:</strong> {msg.rsaDecrypted}
+              </div>
+              <div>
+                <strong>Enc Time:</strong>{" "}
+                {msg.encryptionTime?.toFixed(6)} sec
+              </div>
+              <div>
+                <strong>Dec Time:</strong>{" "}
+                {msg.decryptionTime?.toFixed(6)} sec
+              </div>
+              <div>
+                <strong>Lattice:</strong> {msg.lattice}
+              </div>
             </div>
           </div>
         ))}

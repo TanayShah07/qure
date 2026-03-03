@@ -38,7 +38,7 @@ const Navbar = () => {
           left: "50%",
           transform: "translateX(-50%)",
           color: "#e2e8f0",
-          fontSize: "24px",
+          fontSize: "20px",
           letterSpacing: "0.5px",
           fontWeight: "500",
         }}
@@ -52,6 +52,9 @@ const Navbar = () => {
         </NavLink>
         <NavLink to="/chat" style={linkStyle}>
           Secure Chat
+        </NavLink>
+        <NavLink to="/simulation" style={linkStyle}>
+          Simulations
         </NavLink>
         <NavLink to="/readiness" style={linkStyle}>
           Graphs
