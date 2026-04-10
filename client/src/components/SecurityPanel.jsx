@@ -45,10 +45,7 @@ overflowY:"auto"
 
 <h2>Security Analysis</h2>
 
-<button
-onClick={close}
-style={{background:"#ef4444",border:"none",padding:"6px 12px",borderRadius:"6px",color:"white"}}
->
+<button onClick={close} style={{background:"#ef4444",border:"none",padding:"6px 12px",borderRadius:"6px",color:"white"}}>
 Close
 </button>
 

@@ -1,3 +1,4 @@
+import ScrollTop from "../components/ScrollTop"
 const Overview = () => {
   return (
     <div
@@ -9,9 +10,7 @@ const Overview = () => {
         lineHeight: "1.8"
       }}
     >
-      <h1 style={{ fontSize: "42px", marginBottom: "40px" }}>
-        QURE Platform Overview
-      </h1>
+      <ScrollTop />
 
       <h2 style={{ fontSize: "28px", marginTop: "40px" }}>
         1. What is QURE?

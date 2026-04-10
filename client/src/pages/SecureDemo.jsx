@@ -163,7 +163,8 @@ minHeight:"100vh",
 background:"linear-gradient(135deg,#0f172a,#1e293b)",
 display:"flex",
 flexDirection:"column",
-color:"white"
+color:"white",
+padding: "20px"
 }}>
 
 <div style={{
